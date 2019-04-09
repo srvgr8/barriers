@@ -4,24 +4,27 @@
 #include <unistd.h>
 
 
-pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
-pthread_cond_t  finish_cond  = PTHREAD_COND_INITIALIZER;
+pthread_mutex_t lock;
+pthread_cond_t  finish_cond;
 int barrier = 0;
-int thread_count;
+int invoke_barrier = 0;
 int barrier_size;
 int counter=0;
-int invoke_barrier = 0;
+int thread_count;
 
 void barrier_init(int n_threads)
 {
     if ( thread_count < barrier_size )
-    	{ barrier = thread_count; return; }
-    	barrier = n_threads;
+        { 
+            barrier = thread_count;
+            return;
+        }
+        barrier = n_threads;
 }
 int decr()
 {
-    if (barrier == 0) {
-
+    if (barrier == 0) 
+    {
         return 0;
     }
 
@@ -83,10 +86,10 @@ int wait_barrier()
 
 
 
-void * barrier_point(void *numthreads)
+void * barrier_point(void *num_thread)
 {
 
-     int r = rand() % 5;
+     int r = rand() % 8;
 
      printf("\nThread %d \nPerforming init task of %d sec\n",++counter,r);
      sleep(r);
