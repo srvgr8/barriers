@@ -12,6 +12,7 @@ int barrier_size;
 int counter=0;
 int thread_count;
 
+
 void barrier_init(int n_threads)
 {
     if ( thread_count < barrier_size )
@@ -91,8 +92,8 @@ void * barrier_point(void *num_thread)
 
      int random = rand() % 8;
 
-     printf("\nThread %d \nPerforming init task of %d sec\n",++counter,r);
-     sleep(r);
+     printf("\nThread %d \nPerforming init task of %d sec\n",++counter,random);
+     sleep(random);
 
      wait_barrier();
      if (barrier_size!=0)
