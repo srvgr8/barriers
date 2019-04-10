@@ -56,7 +56,7 @@ int wait_barrier()
     {
         if(pthread_mutex_lock(&lock) != 0)
         {
-            perror("\n Error in locking mutex");
+            perror("\n Error while locking mutex");
             return -1;
         }
 
@@ -71,7 +71,7 @@ int wait_barrier()
     {
         if(pthread_mutex_unlock(&lock) != 0)
         {
-            perror("\n Error in locking mutex");
+            perror("\n Error while locking mutex");
             return -1;
         }
         if(pthread_cond_signal(&finish_cond) != 0)
@@ -89,17 +89,18 @@ int wait_barrier()
 void * barrier_point(void *num_thread)
 {
 
-     int r = rand() % 8;
+     int random = rand() % 8;
 
      printf("\nThread %d \nPerforming init task of %d sec\n",++counter,r);
      sleep(r);
 
      wait_barrier();
-     if (barrier_size!=0) {
+     if (barrier_size!=0)
+     {
        if ((thread_count - (invoke_barrier++) ) % barrier_size == 0) {
          printf("\nBarrier Released\n");
        }
-       printf("\nTask after the barrier\n");
+       printf("\nThreads after the barrier\n");
 
      }
 
@@ -112,7 +113,7 @@ int main()
     printf("Enter Barrier Size\n");
     scanf("%d", &barrier_size);
 
-    printf("Enter no. of thread\n");
+    printf("Enter number of thread\n");
     scanf("%d", &thread_count);
 
 
